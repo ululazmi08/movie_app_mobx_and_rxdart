@@ -7,19 +7,17 @@ part 'movie_response.g.dart';
 class MovieResponse with _$MovieResponse {
   const factory MovieResponse({
     required bool adult,
-    required String backdropPath,
-    required List<int> genreIds,
+    String? backdropPath,
     required int id,
-    required String originalLanguage,
-    required String originalTitle,
+    String? originalTitle,
     required String overview,
     required double popularity,
-    required String posterPath,
-    required DateTime releaseDate,
+    String? posterPath,
+    String? releaseDate,
     required String title,
     required bool video,
-    required double voteAverage,
-    required int voteCount,
+    double? voteAverage,
+    int? voteCount,
   }) = _MovieResponse;
 
   factory MovieResponse.fromJson(Map<String, dynamic> json) => _$MovieResponseFromJson(json);

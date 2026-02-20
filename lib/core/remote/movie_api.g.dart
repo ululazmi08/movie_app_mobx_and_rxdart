@@ -27,7 +27,7 @@ class _MovieApi implements MovieApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'movie/upcoming',
+            'movie/popular',
             queryParameters: queryParameters,
             data: _data,
           )

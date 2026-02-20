@@ -9,4 +9,7 @@ abstract class Env {
 
   @EnviedField()
   static String baseUrl = _Env.baseUrl;
+
+  @EnviedField()
+  static String baseUrlImg = _Env.baseUrlImg;
 }

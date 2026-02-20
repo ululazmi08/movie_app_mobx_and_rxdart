@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import '../models/item_model.dart';
+import 'package:movie_app_mobx_and_rxdart/models/movie_response.dart';
 
 part 'bookmark_store.g.dart';
 
@@ -7,18 +7,20 @@ class BookmarkStore = _BookmarkStore with _$BookmarkStore;
 
 abstract class _BookmarkStore with Store {
   @observable
-  ObservableList<ItemModel> bookmarks = ObservableList<ItemModel>();
+  ObservableList<MovieResponse> bookmarks = ObservableList<MovieResponse>();
 
   @action
-  void toggleBookmark(ItemModel item) {
-    if (bookmarks.any((e) => e.id == item.id)) {
-      bookmarks.removeWhere((e) => e.id == item.id);
+  void toggleBookmark(MovieResponse movie) {
+    final exists = bookmarks.any((e) => e.id == movie.id);
+
+    if (exists) {
+      bookmarks.removeWhere((e) => e.id == movie.id);
     } else {
-      bookmarks.add(item);
+      bookmarks.add(movie);
     }
   }
 
-  bool isBookmarked(int id) {
-    return bookmarks.any((e) => e.id == id);
-  }
+  @computed
+  Set<int> get bookmarkedIds =>
+      bookmarks.map((e) => e.id).toSet();
 }

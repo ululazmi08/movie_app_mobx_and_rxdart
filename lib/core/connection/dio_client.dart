@@ -15,7 +15,7 @@ class DioClient {
       baseUrl: baseUrl,
     );
 
-    _dio.options.headers[HttpHeaders.authorizationHeader] = Env.accessToken;
+    _dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ${Env.accessToken}';
     _dio.options.headers['Accept'] = 'application/json';
 
     _dio.interceptors.addAll([

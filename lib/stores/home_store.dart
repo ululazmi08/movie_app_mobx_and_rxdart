@@ -1,49 +1,45 @@
+import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
-import 'package:rxdart/rxdart.dart';
-import '../models/item_model.dart';
+import 'package:movie_app_mobx_and_rxdart/core/repository/movie_repository.dart';
+import 'package:movie_app_mobx_and_rxdart/models/movie_response.dart';
 
 part 'home_store.g.dart';
 
 class HomeStore = _HomeStore with _$HomeStore;
 
+@injectable
 abstract class _HomeStore with Store {
-  final _pageSubject = BehaviorSubject<int>.seeded(1);
+  _HomeStore(this.repository);
+
+  final MovieRepository repository;
 
   @observable
-  ObservableList<ItemModel> items = ObservableList<ItemModel>();
+  ObservableList<MovieResponse> movies = ObservableList<MovieResponse>();
 
   @observable
   bool isLoading = false;
 
-  _HomeStore() {
-    _pageSubject.listen((page) {
-      fetchItems(page);
-    });
-  }
-
-  void loadNextPage() {
-    _pageSubject.add(_pageSubject.value + 1);
-  }
+  @observable
+  String? errorMessage;
 
   @action
-  Future<void> fetchItems(int page) async {
+  Future<void> load() async {
     isLoading = true;
+    errorMessage = null;
 
-    await Future.delayed(Duration(seconds: 1));
+    final result = await repository.getPopular();
 
-    final newItems = List.generate(
-      10,
-          (index) => ItemModel(
-        id: (page - 1) * 10 + index,
-        title: "Item ${(page - 1) * 10 + index}",
-      ),
+    result.fold(
+          (error) {
+        errorMessage = error.toString();
+      },
+          (data) {
+        movies
+          ..clear()
+          ..addAll(data);
+      },
     );
 
-    items.addAll(newItems);
     isLoading = false;
-  }
-
-  void dispose() {
-    _pageSubject.close();
   }
 }

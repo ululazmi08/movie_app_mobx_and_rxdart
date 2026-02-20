@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:movie_app_mobx_and_rxdart/core/injection/injection.dart';
 import 'package:movie_app_mobx_and_rxdart/pages/bookmark_page.dart';
 import 'package:movie_app_mobx_and_rxdart/pages/home_page.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
@@ -11,7 +12,7 @@ class MainPage extends StatelessWidget {
 
   final navigationStore = NavigationStore();
   final bookmarkStore = BookmarkStore();
-  final homeStore = HomeStore();
+  final homeStore = getIt<HomeStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class MainPage extends StatelessWidget {
         body: IndexedStack(
           index: navigationStore.currentIndex,
           children: [
-            HomePage(store: homeStore, bookmarkStore: bookmarkStore),
+            HomePage(homeStore: homeStore, bookmarkStore: bookmarkStore),
             BookmarkPage(store: bookmarkStore),
           ],
         ),

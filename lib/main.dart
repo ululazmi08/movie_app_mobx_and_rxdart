@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movie_app_mobx_and_rxdart/core/injection/injection.dart';
 import 'package:movie_app_mobx_and_rxdart/pages/main_page.dart';
 
-void main() {
-  configureInjection();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(const MyApp());
 }
 

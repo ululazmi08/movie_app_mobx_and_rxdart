@@ -9,18 +9,18 @@ part of 'home_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeStore on _HomeStore, Store {
-  late final _$itemsAtom = Atom(name: '_HomeStore.items', context: context);
+  late final _$moviesAtom = Atom(name: '_HomeStore.movies', context: context);
 
   @override
-  ObservableList<ItemModel> get items {
-    _$itemsAtom.reportRead();
-    return super.items;
+  ObservableList<MovieResponse> get movies {
+    _$moviesAtom.reportRead();
+    return super.movies;
   }
 
   @override
-  set items(ObservableList<ItemModel> value) {
-    _$itemsAtom.reportWrite(value, super.items, () {
-      super.items = value;
+  set movies(ObservableList<MovieResponse> value) {
+    _$moviesAtom.reportWrite(value, super.movies, () {
+      super.movies = value;
     });
   }
 
@@ -40,19 +40,36 @@ mixin _$HomeStore on _HomeStore, Store {
     });
   }
 
-  late final _$fetchItemsAsyncAction =
-      AsyncAction('_HomeStore.fetchItems', context: context);
+  late final _$errorMessageAtom =
+      Atom(name: '_HomeStore.errorMessage', context: context);
 
   @override
-  Future<void> fetchItems(int page) {
-    return _$fetchItemsAsyncAction.run(() => super.fetchItems(page));
+  String? get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String? value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
+  late final _$loadAsyncAction =
+      AsyncAction('_HomeStore.load', context: context);
+
+  @override
+  Future<void> load() {
+    return _$loadAsyncAction.run(() => super.load());
   }
 
   @override
   String toString() {
     return '''
-items: ${items},
-isLoading: ${isLoading}
+movies: ${movies},
+isLoading: ${isLoading},
+errorMessage: ${errorMessage}
     ''';
   }
 }

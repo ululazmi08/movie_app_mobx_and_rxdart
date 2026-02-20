@@ -21,19 +21,17 @@ MovieResponse _$MovieResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MovieResponse {
   bool get adult => throw _privateConstructorUsedError;
-  String get backdropPath => throw _privateConstructorUsedError;
-  List<int> get genreIds => throw _privateConstructorUsedError;
+  String? get backdropPath => throw _privateConstructorUsedError;
   int get id => throw _privateConstructorUsedError;
-  String get originalLanguage => throw _privateConstructorUsedError;
-  String get originalTitle => throw _privateConstructorUsedError;
+  String? get originalTitle => throw _privateConstructorUsedError;
   String get overview => throw _privateConstructorUsedError;
   double get popularity => throw _privateConstructorUsedError;
-  String get posterPath => throw _privateConstructorUsedError;
-  DateTime get releaseDate => throw _privateConstructorUsedError;
+  String? get posterPath => throw _privateConstructorUsedError;
+  String? get releaseDate => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get video => throw _privateConstructorUsedError;
-  double get voteAverage => throw _privateConstructorUsedError;
-  int get voteCount => throw _privateConstructorUsedError;
+  double? get voteAverage => throw _privateConstructorUsedError;
+  int? get voteCount => throw _privateConstructorUsedError;
 
   /// Serializes this MovieResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,19 +51,17 @@ abstract class $MovieResponseCopyWith<$Res> {
   @useResult
   $Res call(
       {bool adult,
-      String backdropPath,
-      List<int> genreIds,
+      String? backdropPath,
       int id,
-      String originalLanguage,
-      String originalTitle,
+      String? originalTitle,
       String overview,
       double popularity,
-      String posterPath,
-      DateTime releaseDate,
+      String? posterPath,
+      String? releaseDate,
       String title,
       bool video,
-      double voteAverage,
-      int voteCount});
+      double? voteAverage,
+      int? voteCount});
 }
 
 /// @nodoc
@@ -84,45 +80,35 @@ class _$MovieResponseCopyWithImpl<$Res, $Val extends MovieResponse>
   @override
   $Res call({
     Object? adult = null,
-    Object? backdropPath = null,
-    Object? genreIds = null,
+    Object? backdropPath = freezed,
     Object? id = null,
-    Object? originalLanguage = null,
-    Object? originalTitle = null,
+    Object? originalTitle = freezed,
     Object? overview = null,
     Object? popularity = null,
-    Object? posterPath = null,
-    Object? releaseDate = null,
+    Object? posterPath = freezed,
+    Object? releaseDate = freezed,
     Object? title = null,
     Object? video = null,
-    Object? voteAverage = null,
-    Object? voteCount = null,
+    Object? voteAverage = freezed,
+    Object? voteCount = freezed,
   }) {
     return _then(_value.copyWith(
       adult: null == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
               as bool,
-      backdropPath: null == backdropPath
+      backdropPath: freezed == backdropPath
           ? _value.backdropPath
           : backdropPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      genreIds: null == genreIds
-          ? _value.genreIds
-          : genreIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as String?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      originalLanguage: null == originalLanguage
-          ? _value.originalLanguage
-          : originalLanguage // ignore: cast_nullable_to_non_nullable
-              as String,
-      originalTitle: null == originalTitle
+      originalTitle: freezed == originalTitle
           ? _value.originalTitle
           : originalTitle // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       overview: null == overview
           ? _value.overview
           : overview // ignore: cast_nullable_to_non_nullable
@@ -131,14 +117,14 @@ class _$MovieResponseCopyWithImpl<$Res, $Val extends MovieResponse>
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
               as double,
-      posterPath: null == posterPath
+      posterPath: freezed == posterPath
           ? _value.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      releaseDate: null == releaseDate
+              as String?,
+      releaseDate: freezed == releaseDate
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -147,14 +133,14 @@ class _$MovieResponseCopyWithImpl<$Res, $Val extends MovieResponse>
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
               as bool,
-      voteAverage: null == voteAverage
+      voteAverage: freezed == voteAverage
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
-              as double,
-      voteCount: null == voteCount
+              as double?,
+      voteCount: freezed == voteCount
           ? _value.voteCount
           : voteCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -169,19 +155,17 @@ abstract class _$$MovieResponseImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool adult,
-      String backdropPath,
-      List<int> genreIds,
+      String? backdropPath,
       int id,
-      String originalLanguage,
-      String originalTitle,
+      String? originalTitle,
       String overview,
       double popularity,
-      String posterPath,
-      DateTime releaseDate,
+      String? posterPath,
+      String? releaseDate,
       String title,
       bool video,
-      double voteAverage,
-      int voteCount});
+      double? voteAverage,
+      int? voteCount});
 }
 
 /// @nodoc
@@ -198,45 +182,35 @@ class __$$MovieResponseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? adult = null,
-    Object? backdropPath = null,
-    Object? genreIds = null,
+    Object? backdropPath = freezed,
     Object? id = null,
-    Object? originalLanguage = null,
-    Object? originalTitle = null,
+    Object? originalTitle = freezed,
     Object? overview = null,
     Object? popularity = null,
-    Object? posterPath = null,
-    Object? releaseDate = null,
+    Object? posterPath = freezed,
+    Object? releaseDate = freezed,
     Object? title = null,
     Object? video = null,
-    Object? voteAverage = null,
-    Object? voteCount = null,
+    Object? voteAverage = freezed,
+    Object? voteCount = freezed,
   }) {
     return _then(_$MovieResponseImpl(
       adult: null == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
               as bool,
-      backdropPath: null == backdropPath
+      backdropPath: freezed == backdropPath
           ? _value.backdropPath
           : backdropPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      genreIds: null == genreIds
-          ? _value._genreIds
-          : genreIds // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as String?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      originalLanguage: null == originalLanguage
-          ? _value.originalLanguage
-          : originalLanguage // ignore: cast_nullable_to_non_nullable
-              as String,
-      originalTitle: null == originalTitle
+      originalTitle: freezed == originalTitle
           ? _value.originalTitle
           : originalTitle // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       overview: null == overview
           ? _value.overview
           : overview // ignore: cast_nullable_to_non_nullable
@@ -245,14 +219,14 @@ class __$$MovieResponseImplCopyWithImpl<$Res>
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
               as double,
-      posterPath: null == posterPath
+      posterPath: freezed == posterPath
           ? _value.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      releaseDate: null == releaseDate
+              as String?,
+      releaseDate: freezed == releaseDate
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -261,14 +235,14 @@ class __$$MovieResponseImplCopyWithImpl<$Res>
           ? _value.video
           : video // ignore: cast_nullable_to_non_nullable
               as bool,
-      voteAverage: null == voteAverage
+      voteAverage: freezed == voteAverage
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
-              as double,
-      voteCount: null == voteCount
+              as double?,
+      voteCount: freezed == voteCount
           ? _value.voteCount
           : voteCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -278,20 +252,17 @@ class __$$MovieResponseImplCopyWithImpl<$Res>
 class _$MovieResponseImpl implements _MovieResponse {
   const _$MovieResponseImpl(
       {required this.adult,
-      required this.backdropPath,
-      required final List<int> genreIds,
+      this.backdropPath,
       required this.id,
-      required this.originalLanguage,
-      required this.originalTitle,
+      this.originalTitle,
       required this.overview,
       required this.popularity,
-      required this.posterPath,
-      required this.releaseDate,
+      this.posterPath,
+      this.releaseDate,
       required this.title,
       required this.video,
-      required this.voteAverage,
-      required this.voteCount})
-      : _genreIds = genreIds;
+      this.voteAverage,
+      this.voteCount});
 
   factory _$MovieResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$MovieResponseImplFromJson(json);
@@ -299,41 +270,31 @@ class _$MovieResponseImpl implements _MovieResponse {
   @override
   final bool adult;
   @override
-  final String backdropPath;
-  final List<int> _genreIds;
-  @override
-  List<int> get genreIds {
-    if (_genreIds is EqualUnmodifiableListView) return _genreIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_genreIds);
-  }
-
+  final String? backdropPath;
   @override
   final int id;
   @override
-  final String originalLanguage;
-  @override
-  final String originalTitle;
+  final String? originalTitle;
   @override
   final String overview;
   @override
   final double popularity;
   @override
-  final String posterPath;
+  final String? posterPath;
   @override
-  final DateTime releaseDate;
+  final String? releaseDate;
   @override
   final String title;
   @override
   final bool video;
   @override
-  final double voteAverage;
+  final double? voteAverage;
   @override
-  final int voteCount;
+  final int? voteCount;
 
   @override
   String toString() {
-    return 'MovieResponse(adult: $adult, backdropPath: $backdropPath, genreIds: $genreIds, id: $id, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount)';
+    return 'MovieResponse(adult: $adult, backdropPath: $backdropPath, id: $id, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount)';
   }
 
   @override
@@ -344,10 +305,7 @@ class _$MovieResponseImpl implements _MovieResponse {
             (identical(other.adult, adult) || other.adult == adult) &&
             (identical(other.backdropPath, backdropPath) ||
                 other.backdropPath == backdropPath) &&
-            const DeepCollectionEquality().equals(other._genreIds, _genreIds) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.originalLanguage, originalLanguage) ||
-                other.originalLanguage == originalLanguage) &&
             (identical(other.originalTitle, originalTitle) ||
                 other.originalTitle == originalTitle) &&
             (identical(other.overview, overview) ||
@@ -372,9 +330,7 @@ class _$MovieResponseImpl implements _MovieResponse {
       runtimeType,
       adult,
       backdropPath,
-      const DeepCollectionEquality().hash(_genreIds),
       id,
-      originalLanguage,
       originalTitle,
       overview,
       popularity,
@@ -404,19 +360,17 @@ class _$MovieResponseImpl implements _MovieResponse {
 abstract class _MovieResponse implements MovieResponse {
   const factory _MovieResponse(
       {required final bool adult,
-      required final String backdropPath,
-      required final List<int> genreIds,
+      final String? backdropPath,
       required final int id,
-      required final String originalLanguage,
-      required final String originalTitle,
+      final String? originalTitle,
       required final String overview,
       required final double popularity,
-      required final String posterPath,
-      required final DateTime releaseDate,
+      final String? posterPath,
+      final String? releaseDate,
       required final String title,
       required final bool video,
-      required final double voteAverage,
-      required final int voteCount}) = _$MovieResponseImpl;
+      final double? voteAverage,
+      final int? voteCount}) = _$MovieResponseImpl;
 
   factory _MovieResponse.fromJson(Map<String, dynamic> json) =
       _$MovieResponseImpl.fromJson;
@@ -424,31 +378,27 @@ abstract class _MovieResponse implements MovieResponse {
   @override
   bool get adult;
   @override
-  String get backdropPath;
-  @override
-  List<int> get genreIds;
+  String? get backdropPath;
   @override
   int get id;
   @override
-  String get originalLanguage;
-  @override
-  String get originalTitle;
+  String? get originalTitle;
   @override
   String get overview;
   @override
   double get popularity;
   @override
-  String get posterPath;
+  String? get posterPath;
   @override
-  DateTime get releaseDate;
+  String? get releaseDate;
   @override
   String get title;
   @override
   bool get video;
   @override
-  double get voteAverage;
+  double? get voteAverage;
   @override
-  int get voteCount;
+  int? get voteCount;
 
   /// Create a copy of MovieResponse
   /// with the given fields replaced by the non-null parameter values.

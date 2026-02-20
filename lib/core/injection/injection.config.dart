@@ -33,8 +33,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i361.Dio>(() => networkModule.getDio());
     gh.lazySingleton<_i527.MovieApi>(
         () => networkModule.movieApi(gh<_i361.Dio>()));
-    gh.lazySingleton<_i328.MemberRepository>(
-        () => _i328.MemberRepository(gh<_i527.MovieApi>()));
+    gh.lazySingleton<_i328.MovieRepository>(
+        () => _i328.MovieRepository(gh<_i527.MovieApi>()));
     return this;
   }
 }
