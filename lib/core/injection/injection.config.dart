@@ -17,6 +17,8 @@ import 'package:movie_app_mobx_and_rxdart/core/injection/network_module.dart'
 import 'package:movie_app_mobx_and_rxdart/core/remote/movie_api.dart' as _i527;
 import 'package:movie_app_mobx_and_rxdart/core/repository/movie_repository.dart'
     as _i328;
+import 'package:movie_app_mobx_and_rxdart/stores/home_store.dart' as _i769;
+import 'package:movie_app_mobx_and_rxdart/stores/search_store.dart' as _i831;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,6 +37,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => networkModule.movieApi(gh<_i361.Dio>()));
     gh.lazySingleton<_i328.MovieRepository>(
         () => _i328.MovieRepository(gh<_i527.MovieApi>()));
+    gh.factory<_i831.SearchStore>(
+        () => _i831.SearchStore(gh<_i328.MovieRepository>()));
+    gh.singleton<_i769.HomeStore>(
+        () => _i769.HomeStore(gh<_i328.MovieRepository>()));
     return this;
   }
 }

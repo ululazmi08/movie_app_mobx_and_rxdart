@@ -13,8 +13,8 @@ _$ApiResponseImpl<T> _$$ApiResponseImplFromJson<T>(
     _$ApiResponseImpl<T>(
       page: (json['page'] as num?)?.toInt(),
       results: (json['results'] as List<dynamic>?)?.map(fromJsonT).toList(),
-      totalPages: (json['totalPages'] as num?)?.toInt(),
-      totalResults: (json['totalResults'] as num?)?.toInt(),
+      totalPages: (json['total_pages'] as num?)?.toInt(),
+      totalResults: (json['total_results'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ApiResponseImplToJson<T>(
@@ -24,6 +24,6 @@ Map<String, dynamic> _$$ApiResponseImplToJson<T>(
     <String, dynamic>{
       'page': instance.page,
       'results': instance.results?.map(toJsonT).toList(),
-      'totalPages': instance.totalPages,
-      'totalResults': instance.totalResults,
+      'total_pages': instance.totalPages,
+      'total_results': instance.totalResults,
     };

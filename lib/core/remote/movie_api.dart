@@ -11,5 +11,13 @@ abstract class MovieApi {
   factory MovieApi(Dio dio) = _MovieApi;
 
   @GET(UrlPath.popular)
-  Future<ApiResponse<MovieResponse>> getPopular();
+  Future<ApiResponse<MovieResponse>> getPopular({
+    @Query('page') int page = 1,
+  });
+
+  @GET(UrlPath.search)
+  Future<ApiResponse<MovieResponse>> search({
+    @Query('query') required String query,
+    @Query('page') int page = 1,
+  });
 }

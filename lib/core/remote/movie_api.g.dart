@@ -18,9 +18,9 @@ class _MovieApi implements MovieApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ApiResponse<MovieResponse>> getPopular() async {
+  Future<ApiResponse<MovieResponse>> getPopular({int page = 1}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ApiResponse<MovieResponse>>(
@@ -28,6 +28,39 @@ class _MovieApi implements MovieApi {
           .compose(
             _dio.options,
             'movie/popular',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<MovieResponse> _value;
+    try {
+      _value = ApiResponse<MovieResponse>.fromJson(
+        _result.data!,
+        (json) => MovieResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ApiResponse<MovieResponse>> search({
+    required String query,
+    int page = 1,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'query': query, r'page': page};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ApiResponse<MovieResponse>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'search/movie',
             queryParameters: queryParameters,
             data: _data,
           )

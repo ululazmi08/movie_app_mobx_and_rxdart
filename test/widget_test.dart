@@ -7,13 +7,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movie_app_mobx_and_rxdart/core/routes.dart';
 
 import 'package:movie_app_mobx_and_rxdart/main.dart';
+import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
+import 'package:movie_app_mobx_and_rxdart/stores/theme_store.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(
+      themeStore: ThemeStore(),
+      bookmarkStore: BookmarkStore(),
+      appRouter: AppRouter(
+        themeStore: ThemeStore(),
+        bookmarkStore: BookmarkStore(),
+      ),
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

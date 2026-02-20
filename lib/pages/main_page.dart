@@ -6,12 +6,14 @@ import 'package:movie_app_mobx_and_rxdart/pages/home_page.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/home_store.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/navigation_store.dart';
+import 'package:movie_app_mobx_and_rxdart/stores/theme_store.dart';
 
 class MainPage extends StatelessWidget {
-  MainPage({super.key});
+  MainPage({super.key, required this.themeStore, required this.bookmarkStore});
 
+  final ThemeStore themeStore;
+  final BookmarkStore bookmarkStore;
   final navigationStore = NavigationStore();
-  final bookmarkStore = BookmarkStore();
   final homeStore = getIt<HomeStore>();
 
   @override
@@ -21,7 +23,11 @@ class MainPage extends StatelessWidget {
         body: IndexedStack(
           index: navigationStore.currentIndex,
           children: [
-            HomePage(homeStore: homeStore, bookmarkStore: bookmarkStore),
+            HomePage(
+              themeStore: themeStore,
+              homeStore: homeStore,
+              bookmarkStore: bookmarkStore,
+            ),
             BookmarkPage(store: bookmarkStore),
           ],
         ),

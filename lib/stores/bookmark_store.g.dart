@@ -48,6 +48,17 @@ mixin _$BookmarkStore on _BookmarkStore, Store {
   }
 
   @override
+  void loadBookmarks() {
+    final _$actionInfo = _$_BookmarkStoreActionController.startAction(
+        name: '_BookmarkStore.loadBookmarks');
+    try {
+      return super.loadBookmarks();
+    } finally {
+      _$_BookmarkStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 bookmarks: ${bookmarks},

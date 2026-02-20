@@ -15,5 +15,5 @@ final class _Env {
 
   static const String baseUrl = 'https://api.themoviedb.org/3/';
 
-  static const String baseUrlImg = 'https://api.themoviedb.org/3/';
+  static const String baseUrlImg = 'https://image.tmdb.org/t/p/original';
 }

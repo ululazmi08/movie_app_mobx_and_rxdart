@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_store.dart';
+part of 'search_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,15 +8,15 @@ part of 'home_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$HomeStore on _HomeStore, Store {
+mixin _$SearchStore on _SearchStore, Store {
   Computed<bool>? _$hasMoreComputed;
 
   @override
   bool get hasMore => (_$hasMoreComputed ??=
-          Computed<bool>(() => super.hasMore, name: '_HomeStore.hasMore'))
+          Computed<bool>(() => super.hasMore, name: '_SearchStore.hasMore'))
       .value;
 
-  late final _$moviesAtom = Atom(name: '_HomeStore.movies', context: context);
+  late final _$moviesAtom = Atom(name: '_SearchStore.movies', context: context);
 
   @override
   ObservableList<MovieResponse> get movies {
@@ -32,7 +32,7 @@ mixin _$HomeStore on _HomeStore, Store {
   }
 
   late final _$isLoadingAtom =
-      Atom(name: '_HomeStore.isLoading', context: context);
+      Atom(name: '_SearchStore.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -48,7 +48,7 @@ mixin _$HomeStore on _HomeStore, Store {
   }
 
   late final _$isLoadingMoreAtom =
-      Atom(name: '_HomeStore.isLoadingMore', context: context);
+      Atom(name: '_SearchStore.isLoadingMore', context: context);
 
   @override
   bool get isLoadingMore {
@@ -64,7 +64,7 @@ mixin _$HomeStore on _HomeStore, Store {
   }
 
   late final _$errorMessageAtom =
-      Atom(name: '_HomeStore.errorMessage', context: context);
+      Atom(name: '_SearchStore.errorMessage', context: context);
 
   @override
   String? get errorMessage {
@@ -80,7 +80,7 @@ mixin _$HomeStore on _HomeStore, Store {
   }
 
   late final _$currentPageAtom =
-      Atom(name: '_HomeStore.currentPage', context: context);
+      Atom(name: '_SearchStore.currentPage', context: context);
 
   @override
   int get currentPage {
@@ -96,7 +96,7 @@ mixin _$HomeStore on _HomeStore, Store {
   }
 
   late final _$totalPagesAtom =
-      Atom(name: '_HomeStore.totalPages', context: context);
+      Atom(name: '_SearchStore.totalPages', context: context);
 
   @override
   int get totalPages {
@@ -111,20 +111,45 @@ mixin _$HomeStore on _HomeStore, Store {
     });
   }
 
-  late final _$loadAsyncAction =
-      AsyncAction('_HomeStore.load', context: context);
+  late final _$_searchAsyncAction =
+      AsyncAction('_SearchStore._search', context: context);
 
   @override
-  Future<void> load() {
-    return _$loadAsyncAction.run(() => super.load());
+  Future<void> _search(String query) {
+    return _$_searchAsyncAction.run(() => super._search(query));
   }
 
   late final _$loadMoreAsyncAction =
-      AsyncAction('_HomeStore.loadMore', context: context);
+      AsyncAction('_SearchStore.loadMore', context: context);
 
   @override
   Future<void> loadMore() {
     return _$loadMoreAsyncAction.run(() => super.loadMore());
+  }
+
+  late final _$_SearchStoreActionController =
+      ActionController(name: '_SearchStore', context: context);
+
+  @override
+  void setSearchQuery(String query) {
+    final _$actionInfo = _$_SearchStoreActionController.startAction(
+        name: '_SearchStore.setSearchQuery');
+    try {
+      return super.setSearchQuery(query);
+    } finally {
+      _$_SearchStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void dispose() {
+    final _$actionInfo = _$_SearchStoreActionController.startAction(
+        name: '_SearchStore.dispose');
+    try {
+      return super.dispose();
+    } finally {
+      _$_SearchStoreActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
