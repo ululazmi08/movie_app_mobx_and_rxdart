@@ -11,6 +11,7 @@ import 'package:movie_app_mobx_and_rxdart/core/routes.dart';
 
 import 'package:movie_app_mobx_and_rxdart/main.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
+import 'package:movie_app_mobx_and_rxdart/stores/locale_store.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/theme_store.dart';
 
 void main() {
@@ -19,9 +20,11 @@ void main() {
     await tester.pumpWidget(MyApp(
       themeStore: ThemeStore(),
       bookmarkStore: BookmarkStore(),
+      localeStore: LocaleStore(),
       appRouter: AppRouter(
         themeStore: ThemeStore(),
         bookmarkStore: BookmarkStore(),
+        localeStore: LocaleStore(),
       ),
     ));
 

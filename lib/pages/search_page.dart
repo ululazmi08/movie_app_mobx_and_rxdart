@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app_mobx_and_rxdart/core/injection/injection.dart';
+import 'package:movie_app_mobx_and_rxdart/core/l10n/l10n.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/search_store.dart';
 import 'package:movie_app_mobx_and_rxdart/widgets/movie_card.dart'; // Asumsi kamu punya ini
@@ -55,8 +56,8 @@ class _SearchPageState extends State<SearchPage> {
           child: TextFormField(
             autofocus: true,
             onChanged: _searchStore.setSearchQuery,
-            decoration: const InputDecoration(
-              hintText: 'Cari film...',
+            decoration: InputDecoration(
+              hintText: context.l10n.find,
               border: InputBorder.none,
             ),
           ),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:movie_app_mobx_and_rxdart/core/injection/injection.dart';
 import 'package:movie_app_mobx_and_rxdart/core/routes.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
+import 'package:movie_app_mobx_and_rxdart/stores/locale_store.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/theme_store.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,19 +15,24 @@ void main() async {
   await configureDependencies();
 
   final themeStore = ThemeStore();
-  themeStore.loadTheme(); // Load saved theme preference
+  themeStore.loadTheme(); 
   
   final bookmarkStore = BookmarkStore();
   bookmarkStore.loadBookmarks();
 
+  final localeStore = LocaleStore();
+  localeStore.loadLocale(); // ✅ Load saved locale preference
+
   final appRouter = AppRouter(
     themeStore: themeStore,
     bookmarkStore: bookmarkStore,
+    localeStore: localeStore,
   );
 
   runApp(MyApp(
     themeStore: themeStore,
     bookmarkStore: bookmarkStore,
+    localeStore: localeStore,
     appRouter: appRouter,
   ));
 }
@@ -35,10 +43,13 @@ class MyApp extends StatelessWidget {
     required this.themeStore,
     required this.bookmarkStore,
     required this.appRouter,
+    required this.localeStore,
+
   });
 
   final ThemeStore themeStore;
   final BookmarkStore bookmarkStore;
+  final LocaleStore localeStore;
   final AppRouter appRouter;
 
   @override
@@ -86,6 +97,18 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        // ✅ Localization
+        locale: localeStore.locale,
+        supportedLocales: const [
+          Locale('en'),
+          Locale('id'),
+        ],
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         routerConfig: appRouter.router,
       ),
     );

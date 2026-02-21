@@ -1,4 +1,8 @@
 {
   "@@locale": "id",
-  "find": "Cari film..."
+  "find": "Cari film...",
+  "movies": "Film",
+  "popular": "Populer",
+  "bookmark": "Penanda",
+  "home": "Beranda"
 }

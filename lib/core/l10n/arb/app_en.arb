@@ -1,4 +1,8 @@
 {
   "@@locale": "en",
-  "find": "Find movie..."
+  "find": "Find movie...",
+  "movies": "Movie",
+  "popular": "Popular",
+  "bookmark": "Bookmark",
+  "home": "Home"
 }

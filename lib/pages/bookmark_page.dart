@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:movie_app_mobx_and_rxdart/core/l10n/l10n.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
 import 'package:movie_app_mobx_and_rxdart/widgets/movie_card.dart';
 
@@ -18,7 +19,7 @@ class BookmarkPage extends StatelessWidget {
         elevation: 2,
         shadowColor: Colors.black.withAlpha(25),
         title: Text(
-          'Bookmark',
+          context.l10n.bookmark,
           textScaler: TextScaler.noScaling,
           style: Theme.of(context).textTheme.titleMedium,
         ),

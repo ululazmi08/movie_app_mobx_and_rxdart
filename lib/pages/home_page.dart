@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_app_mobx_and_rxdart/core/l10n/l10n.dart';
 import 'package:movie_app_mobx_and_rxdart/core/routes.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/home_store.dart';
+import 'package:movie_app_mobx_and_rxdart/stores/locale_store.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/theme_store.dart';
 import 'package:movie_app_mobx_and_rxdart/widgets/movie_card.dart';
 import 'package:movie_app_mobx_and_rxdart/widgets/shimmer_widget.dart';
@@ -14,11 +16,13 @@ class HomePage extends StatefulWidget {
     required this.homeStore,
     required this.bookmarkStore,
     required this.themeStore,
+    required this.localeStore,
   });
 
   final ThemeStore themeStore;
   final HomeStore homeStore;
   final BookmarkStore bookmarkStore;
+  final LocaleStore localeStore;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -58,6 +62,18 @@ class _HomePageState extends State<HomePage> {
         // elevation: 2,
         // shadowColor: Colors.black.withAlpha(25),
         actions: [
+          // Toggle bahasa
+          Observer(
+            builder: (_) => IconButton(
+              icon: Text(
+                widget.localeStore.isEnglish ? '🇬🇧' : '🇮🇩',
+                style: const TextStyle(fontSize: 20),
+              ),
+              onPressed: widget.localeStore.toggleLocale,
+              tooltip: widget.localeStore.isEnglish ? 'English' : 'Bahasa Indonesia',
+            ),
+          ),
+
           Observer(
             builder: (_) {
               final brightness = MediaQuery.of(context).platformBrightness;
@@ -77,7 +93,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         title: Text(
-          'Movies',
+          context.l10n.movies,
           textScaler: TextScaler.noScaling,
           style: Theme.of(context).textTheme.titleMedium,
         ),
@@ -108,14 +124,17 @@ class _HomePageState extends State<HomePage> {
                           context.push(RoutePath.search.path);
                         },
                         child: Container(
+                          height: 45,
                           decoration: BoxDecoration(
+                            color: Colors.transparent,
                             border: Border(bottom: BorderSide(color: Colors.grey)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                            Icon(Icons.search_rounded)
-                          ],),
+                              Icon(Icons.search_rounded)
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -149,7 +168,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'Popular',
+                  context.l10n.popular,
                   textScaler: TextScaler.noScaling,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
