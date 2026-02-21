@@ -111,6 +111,31 @@ mixin _$HomeStore on _HomeStore, Store {
     });
   }
 
+  late final _$selectedCategoryAtom =
+      Atom(name: '_HomeStore.selectedCategory', context: context);
+
+  @override
+  MovieCategory get selectedCategory {
+    _$selectedCategoryAtom.reportRead();
+    return super.selectedCategory;
+  }
+
+  @override
+  set selectedCategory(MovieCategory value) {
+    _$selectedCategoryAtom.reportWrite(value, super.selectedCategory, () {
+      super.selectedCategory = value;
+    });
+  }
+
+  late final _$changeCategoryAsyncAction =
+      AsyncAction('_HomeStore.changeCategory', context: context);
+
+  @override
+  Future<void> changeCategory(MovieCategory category) {
+    return _$changeCategoryAsyncAction
+        .run(() => super.changeCategory(category));
+  }
+
   late final _$loadAsyncAction =
       AsyncAction('_HomeStore.load', context: context);
 
@@ -136,6 +161,7 @@ isLoadingMore: ${isLoadingMore},
 errorMessage: ${errorMessage},
 currentPage: ${currentPage},
 totalPages: ${totalPages},
+selectedCategory: ${selectedCategory},
 hasMore: ${hasMore}
     ''';
   }

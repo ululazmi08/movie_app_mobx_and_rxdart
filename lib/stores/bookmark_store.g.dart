@@ -33,6 +33,22 @@ mixin _$BookmarkStore on _BookmarkStore, Store {
     });
   }
 
+  late final _$isAscendingAtom =
+      Atom(name: '_BookmarkStore.isAscending', context: context);
+
+  @override
+  bool get isAscending {
+    _$isAscendingAtom.reportRead();
+    return super.isAscending;
+  }
+
+  @override
+  set isAscending(bool value) {
+    _$isAscendingAtom.reportWrite(value, super.isAscending, () {
+      super.isAscending = value;
+    });
+  }
+
   late final _$_BookmarkStoreActionController =
       ActionController(name: '_BookmarkStore', context: context);
 
@@ -42,6 +58,17 @@ mixin _$BookmarkStore on _BookmarkStore, Store {
         name: '_BookmarkStore.toggleBookmark');
     try {
       return super.toggleBookmark(movie);
+    } finally {
+      _$_BookmarkStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleSort() {
+    final _$actionInfo = _$_BookmarkStoreActionController.startAction(
+        name: '_BookmarkStore.toggleSort');
+    try {
+      return super.toggleSort();
     } finally {
       _$_BookmarkStoreActionController.endAction(_$actionInfo);
     }
@@ -62,6 +89,7 @@ mixin _$BookmarkStore on _BookmarkStore, Store {
   String toString() {
     return '''
 bookmarks: ${bookmarks},
+isAscending: ${isAscending},
 bookmarkedIds: ${bookmarkedIds}
     ''';
   }

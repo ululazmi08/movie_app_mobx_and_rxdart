@@ -1,14 +1,15 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:mobx/mobx.dart';
 
 part 'locale_store.g.dart';
 
+@singleton
 class LocaleStore = _LocaleStore with _$LocaleStore;
 
 abstract class _LocaleStore with Store {
-  // Jika null, berarti mengikuti sistem
   @observable
   Locale? _manualLocale;
 
@@ -17,7 +18,6 @@ abstract class _LocaleStore with Store {
     if (_manualLocale != null) {
       return _manualLocale!;
     }
-    // Ambil bahasa dari sistem device
     return ui.PlatformDispatcher.instance.locale;
   }
 
@@ -26,7 +26,6 @@ abstract class _LocaleStore with Store {
 
   @action
   void toggleLocale() {
-    // Jika saat ini English (baik dari sistem atau manual), ubah ke ID, dan sebaliknya
     if (isEnglish) {
       setLocale(const Locale('id'));
     } else {
@@ -46,7 +45,7 @@ abstract class _LocaleStore with Store {
     if (code != null && code.isNotEmpty) {
       _manualLocale = Locale(code);
     } else {
-      _manualLocale = null; // Kembali ke sistem jika tidak ada di storage
+      _manualLocale = null;
     }
   }
 

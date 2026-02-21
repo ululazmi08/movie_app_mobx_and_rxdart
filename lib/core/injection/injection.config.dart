@@ -18,6 +18,7 @@ import 'package:movie_app_mobx_and_rxdart/core/remote/movie_api.dart' as _i527;
 import 'package:movie_app_mobx_and_rxdart/core/repository/movie_repository.dart'
     as _i328;
 import 'package:movie_app_mobx_and_rxdart/stores/home_store.dart' as _i769;
+import 'package:movie_app_mobx_and_rxdart/stores/locale_store.dart' as _i574;
 import 'package:movie_app_mobx_and_rxdart/stores/search_store.dart' as _i831;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -33,10 +34,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final networkModule = _$NetworkModule();
     gh.factory<_i361.Dio>(() => networkModule.getDio());
+    gh.singleton<_i574.LocaleStore>(() => _i574.LocaleStore());
     gh.lazySingleton<_i527.MovieApi>(
         () => networkModule.movieApi(gh<_i361.Dio>()));
-    gh.lazySingleton<_i328.MovieRepository>(
-        () => _i328.MovieRepository(gh<_i527.MovieApi>()));
+    gh.lazySingleton<_i328.MovieRepository>(() => _i328.MovieRepository(
+          gh<_i527.MovieApi>(),
+          gh<_i574.LocaleStore>(),
+        ));
     gh.factory<_i831.SearchStore>(
         () => _i831.SearchStore(gh<_i328.MovieRepository>()));
     gh.singleton<_i769.HomeStore>(

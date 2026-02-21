@@ -13,11 +13,26 @@ abstract class MovieApi {
   @GET(UrlPath.popular)
   Future<ApiResponse<MovieResponse>> getPopular({
     @Query('page') int page = 1,
+    @Query('language') required String language,
+  });
+
+  @GET(UrlPath.nowPlaying)
+  Future<ApiResponse<MovieResponse>> getNowPlaying({
+    @Query('page') int page = 1,
+    @Query('language') required String language,
+  });
+
+  @GET(UrlPath.upcoming)
+  Future<ApiResponse<MovieResponse>> getUpcoming({
+    @Query('page') int page = 1,
+    @Query('language') required String language,
   });
 
   @GET(UrlPath.search)
   Future<ApiResponse<MovieResponse>> search({
     @Query('query') required String query,
     @Query('page') int page = 1,
+    @Query('language') required String language,
+
   });
 }

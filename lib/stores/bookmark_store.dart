@@ -12,6 +12,9 @@ abstract class _BookmarkStore with Store {
   @observable
   ObservableList<MovieResponse> bookmarks = ObservableList<MovieResponse>();
 
+  @observable
+  bool isAscending = true;
+
   @action
   void toggleBookmark(MovieResponse movie) {
     final exists = bookmarks.any((e) => e.id == movie.id);
@@ -19,6 +22,17 @@ abstract class _BookmarkStore with Store {
       bookmarks.removeWhere((e) => e.id == movie.id);
     } else {
       bookmarks.add(movie);
+    }
+    _saveToStorage();
+  }
+
+  @action
+  void toggleSort() {
+    isAscending = !isAscending;
+    if (isAscending) {
+      bookmarks.sort((a, b) => a.title.compareTo(b.title));
+    } else {
+      bookmarks.sort((a, b) => b.title.compareTo(a.title));
     }
     _saveToStorage();
   }

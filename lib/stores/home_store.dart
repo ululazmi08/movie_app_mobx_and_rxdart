@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
+import 'package:movie_app_mobx_and_rxdart/core/enum/enum.dart';
 import 'package:movie_app_mobx_and_rxdart/core/repository/movie_repository.dart';
 import 'package:movie_app_mobx_and_rxdart/models/movie_response.dart';
 
@@ -20,7 +21,7 @@ abstract class _HomeStore with Store {
   bool isLoading = false;
 
   @observable
-  bool isLoadingMore = false; // ✅ loading tambahan saat scroll
+  bool isLoadingMore = false;
 
   @observable
   String? errorMessage;
@@ -31,18 +32,26 @@ abstract class _HomeStore with Store {
   @observable
   int totalPages = 1;
 
+  @observable
+  MovieCategory selectedCategory = MovieCategory.popular;
+
   @computed
   bool get hasMore => currentPage < totalPages;
 
   @action
+  Future<void> changeCategory(MovieCategory category) async {
+    selectedCategory = category;
+    await load();
+  }
+
+  @action
   Future<void> load() async {
-    // Reset state untuk load awal
     currentPage = 1;
     totalPages = 1;
     isLoading = true;
     errorMessage = null;
 
-    final result = await repository.getPopular(page: 1);
+    final result = await repository.getMovies(category: selectedCategory, page: 1);
 
     runInAction(() {
       result.fold(
@@ -50,9 +59,8 @@ abstract class _HomeStore with Store {
           errorMessage = error.toString();
         },
             (response) {
-          movies
-            ..clear()
-            ..addAll(response.results ?? []);
+          movies.clear();
+          movies.addAll(response.results ?? []);
           currentPage = response.page ?? 1;
           totalPages = response.totalPages ?? 1;
         },
@@ -63,13 +71,12 @@ abstract class _HomeStore with Store {
 
   @action
   Future<void> loadMore() async {
-    // Jangan load jika sedang loading atau sudah halaman terakhir
     if (isLoadingMore || !hasMore) return;
 
     isLoadingMore = true;
     final nextPage = currentPage + 1;
 
-    final result = await repository.getPopular(page: nextPage);
+    final result = await repository.getMovies(category: selectedCategory, page: nextPage);
 
     runInAction(() {
       result.fold(
@@ -77,7 +84,6 @@ abstract class _HomeStore with Store {
           errorMessage = error.toString();
         },
             (response) {
-          // ✅ Append, bukan replace
           movies.addAll(response.results ?? []);
           currentPage = response.page ?? currentPage;
           totalPages = response.totalPages ?? totalPages;

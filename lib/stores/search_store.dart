@@ -6,7 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 part 'search_store.g.dart';
 
-@injectable // Tandai sebagai injectable
+@injectable
 class SearchStore = _SearchStore with _$SearchStore;
 
 abstract class _SearchStore with Store {
@@ -16,10 +16,8 @@ abstract class _SearchStore with Store {
 
   final MovieRepository repository;
 
-  // Subject untuk menampung query dari user
   final _querySubject = BehaviorSubject<String>();
 
-  // Observable
   @observable
   ObservableList<MovieResponse> movies = ObservableList<MovieResponse>();
 
@@ -49,9 +47,8 @@ abstract class _SearchStore with Store {
 
   void _setupDebounce() {
     _querySubject
-    // Beri jeda 500ms setelah user berhenti mengetik
         .debounceTime(const Duration(milliseconds: 500))
-        .distinct() // Hanya kirim jika query berubah
+        .distinct()
         .listen((query) {
       if (query.isEmpty) {
         runInAction(() {

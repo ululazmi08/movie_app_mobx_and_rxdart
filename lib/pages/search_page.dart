@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movie_app_mobx_and_rxdart/core/injection/injection.dart';
 import 'package:movie_app_mobx_and_rxdart/core/l10n/l10n.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
@@ -37,7 +36,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
-    _searchStore.dispose(); // Wajib untuk menutup RxDart subject
+    _searchStore.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -52,12 +51,14 @@ class _SearchPageState extends State<SearchPage> {
         elevation: 2,
         shadowColor: Colors.black.withAlpha(25),
         titleSpacing: 0,
-        title: Expanded(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 16),
           child: TextFormField(
             autofocus: true,
             onChanged: _searchStore.setSearchQuery,
             decoration: InputDecoration(
               hintText: context.l10n.find,
+              hintStyle: Theme.of(context).textTheme.titleMedium,
               border: InputBorder.none,
             ),
           ),
@@ -70,15 +71,23 @@ class _SearchPageState extends State<SearchPage> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            if (_searchStore.errorMessage != null &&
-                _searchStore.movies.isEmpty) {
-              return Center(child: Text(_searchStore.errorMessage!));
+            if (_searchStore.errorMessage != null && _searchStore.movies.isEmpty) {
+              return Center(
+                child: Text(
+                  _searchStore.errorMessage!,
+                  textScaler: TextScaler.noScaling,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              );
             }
 
-            if (_searchStore.movies.isEmpty &&
-                _searchStore.isLoading == false) {
-              return const Center(
-                  child: Text('Mulai ketik untuk mencari film.'));
+            if (_searchStore.movies.isEmpty && _searchStore.isLoading == false) {
+              return Center(
+                child: Text(context.l10n.searchInfo,
+                  textScaler: TextScaler.noScaling,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              );
             }
 
             return ListView.separated(
@@ -109,79 +118,6 @@ class _SearchPageState extends State<SearchPage> {
             );
           },
         ),
-        // Column(
-        //   children: [
-        //     Padding(
-        //       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        //
-        //       child: Row(
-        //         children: [
-        //           IconButton(
-        //             icon: const Icon(Icons.arrow_back),
-        //             onPressed: () => context.pop(),
-        //           ),
-        //           Expanded(
-        //             child: TextFormField(
-        //               autofocus: true,
-        //               onChanged: _searchStore.setSearchQuery,
-        //               decoration: const InputDecoration(
-        //                 hintText: 'Cari film...',
-        //                 border: InputBorder.none,
-        //               ),
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     Expanded(
-        //       child: Observer(
-        //         builder: (_) {
-        //           if (_searchStore.isLoading) {
-        //             return const Center(child: CircularProgressIndicator());
-        //           }
-        //
-        //           if (_searchStore.errorMessage != null &&
-        //               _searchStore.movies.isEmpty) {
-        //             return Center(child: Text(_searchStore.errorMessage!));
-        //           }
-        //
-        //           if (_searchStore.movies.isEmpty &&
-        //               _searchStore.isLoading == false) {
-        //             return const Center(
-        //                 child: Text('Mulai ketik untuk mencari film.'));
-        //           }
-        //
-        //           return ListView.separated(
-        //             controller: _scrollController,
-        //             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        //             itemCount: _searchStore.movies.length + (_searchStore.isLoadingMore ? 1 : 0),
-        //             itemBuilder: (context, index) {
-        //               if (index == _searchStore.movies.length) {
-        //                 return const Padding(
-        //                   padding: EdgeInsets.symmetric(vertical: 24),
-        //                   child: Center(child: CircularProgressIndicator()),
-        //                 );
-        //               }
-        //               final movie = _searchStore.movies[index];
-        //               return Observer(
-        //                 builder: (_) {
-        //                   final isBookmarked = widget.bookmarkStore.isBookmarked(movie.id);
-        //                   return MovieCard(
-        //                     movie: movie,
-        //                     isBookmarked: isBookmarked,
-        //                     onTap: () =>
-        //                         widget.bookmarkStore.toggleBookmark(movie),
-        //                   );
-        //                 },
-        //               );
-        //             },
-        //             separatorBuilder: (_, __) => const SizedBox(height: 16),
-        //           );
-        //         },
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_app_mobx_and_rxdart/core/enum/enum.dart';
 import 'package:movie_app_mobx_and_rxdart/core/l10n/l10n.dart';
 import 'package:movie_app_mobx_and_rxdart/core/routes.dart';
 import 'package:movie_app_mobx_and_rxdart/stores/bookmark_store.dart';
@@ -37,7 +38,6 @@ class _HomePageState extends State<HomePage> {
       widget.homeStore.load();
     });
 
-    // ✅ Trigger loadMore saat scroll mendekati bawah
     _scrollController.addListener(() {
       final position = _scrollController.position;
       if (position.pixels >= position.maxScrollExtent - 200) {
@@ -59,21 +59,21 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surface,
         surfaceTintColor: Colors.transparent,
-        // elevation: 2,
-        // shadowColor: Colors.black.withAlpha(25),
         actions: [
-          // Toggle bahasa
           Observer(
             builder: (_) => IconButton(
               icon: Text(
                 widget.localeStore.isEnglish ? '🇬🇧' : '🇮🇩',
+                textScaler: TextScaler.noScaling,
                 style: const TextStyle(fontSize: 20),
               ),
-              onPressed: widget.localeStore.toggleLocale,
+              onPressed: (){
+                widget.localeStore.toggleLocale();
+                widget.homeStore.load();
+              },
               tooltip: widget.localeStore.isEnglish ? 'English' : 'Bahasa Indonesia',
             ),
           ),
-
           Observer(
             builder: (_) {
               final brightness = MediaQuery.of(context).platformBrightness;
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
 
               return IconButton(
                 icon: Icon(
-                  isActuallyDark ? Icons.light_mode : Icons.dark_mode,
+                  isActuallyDark ? Icons.dark_mode : Icons.light_mode,
                 ),
                 onPressed: (){
                   widget.themeStore.toggleTheme(brightness);
@@ -130,36 +130,180 @@ class _HomePageState extends State<HomePage> {
                             border: Border(bottom: BorderSide(color: Colors.grey)),
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Icon(Icons.search_rounded)
+                              Text(
+                                context.l10n.find,
+                                textScaler: TextScaler.noScaling,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                              Icon(Icons.search_rounded),
                             ],
                           ),
                         ),
                       ),
                     ),
                     SizedBox(width: 12),
-                    Container(
-                      height: 45,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(width: 5),
-                          Icon(Icons.filter_list),
-                          const SizedBox(width: 5),
-                          Text(
-                            'Popular',
-                            textScaler: TextScaler.noScaling,
-                            style: Theme.of(context).textTheme.bodySmall,
+                    Observer(
+                      builder: (_) {
+                        final selectedCategory = widget.homeStore.selectedCategory;
+                        return GestureDetector(
+                          onTap: () {
+                            MovieCategory tempSelected = selectedCategory;
+                            showModalBottomSheet(
+                              isDismissible: false,
+                              context: context,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                              ),
+                              isScrollControlled: true,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                  builder: (context, setStateSheet) {
+                                    return SafeArea(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const SizedBox(height: 7),
+                                          Stack(
+                                            children: [
+                                              Center(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                                                  child: Text(
+                                                    'Filter',
+                                                    textAlign: TextAlign.center,
+                                                    textScaler: TextScaler.noScaling,
+                                                    style: Theme.of(context).textTheme.titleMedium,
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                right: 15,
+                                                top: -3,
+                                                child: GestureDetector(
+                                                  onTap: () => context.pop(),
+                                                  child: const Icon(Icons.close_rounded),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 16),
+                                          ListView.separated(
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            padding: const EdgeInsets.symmetric(horizontal: 17),
+                                            itemCount: MovieCategory.values.length,
+                                            itemBuilder: (context, index) {
+                                              final category = MovieCategory.values[index];
+                                              final isSelected = tempSelected == category;
+
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  setStateSheet(() => tempSelected = category);
+                                                },
+                                                child: ColoredBox(
+                                                  color: Colors.transparent,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.symmetric(
+                                                      vertical: 15,
+                                                      horizontal: 8,
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          category.label(context.l10n),
+                                                          textScaler: TextScaler.noScaling,
+                                                          style: Theme.of(context).textTheme.bodySmall,
+                                                        ),
+                                                        if (isSelected)
+                                                          const Icon(
+                                                            Icons.check_box_rounded,
+                                                            color: Colors.deepPurple,
+                                                          )
+                                                        else
+                                                          const Icon(
+                                                            Icons.check_box_outline_blank_rounded,
+                                                            color: Colors.grey,
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            separatorBuilder: (_, __) => const Divider(
+                                              thickness: 1,
+                                              color: Colors.grey,
+                                              height: 0,
+                                            ),
+                                          ),
+                                          Container(height: 4, color: Colors.grey),
+                                          GestureDetector(
+                                            onTap: () {
+                                              widget.homeStore.changeCategory(tempSelected);
+                                              context.pop();
+                                            },
+                                            child: Container(
+                                              margin: const EdgeInsets.symmetric(
+                                                vertical: 20,
+                                                horizontal: 30,
+                                              ),
+                                              padding: const EdgeInsets.symmetric(vertical: 10),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(6),
+                                                color: Colors.deepPurple,
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    context.l10n.apply,
+                                                    textAlign: TextAlign.center,
+                                                    textScaler: TextScaler.noScaling,
+                                                    style: Theme.of(context).textTheme.bodySmall
+                                                        ?.copyWith(fontSize: 13),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                          child: Container(
+                            height: 45,
+                            width: 90,
+                            padding: EdgeInsets.symmetric(horizontal: 6),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.filter_list),
+                                const SizedBox(width: 5),
+                                Expanded(
+                                  child: Text(
+                                    selectedCategory.label(context.l10n),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    textScaler: TextScaler.noScaling,
+                                    style: Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(width: 10),
-                        ],
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -167,12 +311,14 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  context.l10n.popular,
-                  textScaler: TextScaler.noScaling,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleMedium,
+                child: Observer(
+                  builder: (_) => Text(
+                    widget.homeStore.selectedCategory.label(context.l10n),
+                    textScaler: TextScaler.noScaling,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ),
               ),
             ],
@@ -210,11 +356,18 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(widget.homeStore.errorMessage!),
+                                Text(
+                                  widget.homeStore.errorMessage!,
+                                  textScaler: TextScaler.noScaling,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
                                 const SizedBox(height: 12),
                                 ElevatedButton(
                                   onPressed: widget.homeStore.load,
-                                  child: const Text('Coba Lagi'),
+                                  child: Text('Coba Lagi',
+                                    textScaler: TextScaler.noScaling,
+                                    style: Theme.of(context).textTheme.bodySmall,
+                                  ),
                                 ),
                               ],
                             ),

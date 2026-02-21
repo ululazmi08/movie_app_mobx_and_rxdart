@@ -24,6 +24,18 @@ class BookmarkPage extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         centerTitle: true,
+        actions: [
+          Observer(
+            builder: (_)=> IconButton(
+              onPressed: store.toggleSort,
+              icon: Icon(
+                store.isAscending
+                    ? Icons.sort_by_alpha_rounded
+                    : Icons.sort_by_alpha_outlined,
+              ),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

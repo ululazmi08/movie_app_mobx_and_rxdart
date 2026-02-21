@@ -20,8 +20,8 @@ void main() async {
   final bookmarkStore = BookmarkStore();
   bookmarkStore.loadBookmarks();
 
-  final localeStore = LocaleStore();
-  localeStore.loadLocale(); // ✅ Load saved locale preference
+  final localeStore = getIt<LocaleStore>();
+  localeStore.loadLocale();
 
   final appRouter = AppRouter(
     themeStore: themeStore,
@@ -97,7 +97,6 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        // ✅ Localization
         locale: localeStore.locale,
         supportedLocales: const [
           Locale('en'),

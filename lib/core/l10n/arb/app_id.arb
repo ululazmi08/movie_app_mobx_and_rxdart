@@ -4,5 +4,10 @@
   "movies": "Film",
   "popular": "Populer",
   "bookmark": "Penanda",
-  "home": "Beranda"
+  "home": "Beranda",
+  "searchInfo": "Ketik untuk mencari film",
+  "categoryPopular": "Populer",
+  "categoryNowPlaying": "Sedang Tayang",
+  "categoryUpcoming": "Segera Tayang",
+  "apply": "Terapkan"
 }

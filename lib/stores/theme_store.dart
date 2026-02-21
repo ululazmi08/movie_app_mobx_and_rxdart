@@ -16,10 +16,8 @@ abstract class _ThemeStore with Store {
   @action
   void toggleTheme(Brightness currentBrightness) {
     if (themeMode == ThemeMode.system) {
-      // Jika masih sistem, ubah ke kebalikan dari brightness sistem saat ini
       themeMode = currentBrightness == Brightness.dark ? ThemeMode.light : ThemeMode.dark;
     } else {
-      // Jika sudah manual, toggle antara light dan dark
       themeMode = themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
     }
     _saveToStorage();

@@ -4,5 +4,10 @@
   "movies": "Movie",
   "popular": "Popular",
   "bookmark": "Bookmark",
-  "home": "Home"
+  "home": "Home",
+  "searchInfo": "Type to find the movies",
+  "categoryPopular": "Popular",
+  "categoryNowPlaying": "Now Playing",
+  "categoryUpcoming": "Upcoming",
+  "apply": "Apply"
 }
